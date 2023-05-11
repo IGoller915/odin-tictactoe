@@ -4,6 +4,17 @@ body{
     align-items: center;
 }
 
+.game-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.point-info{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px
+}
+
 .board{
     display: grid;
     grid-template-columns: repeat(3,100px);
