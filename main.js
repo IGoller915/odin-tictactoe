@@ -28,7 +28,7 @@ const gameBoard = (() => {
     const displayBoard = () => console.log(board)
     
 
-    return {selectTile, displayBoard}
+    return {selectTile, displayBoard, currentPlayer, changePlayer, board}
 })()
 
 
@@ -40,9 +40,14 @@ const displayController = (() => {
     let tiles = document.querySelectorAll(".board-tile")
     
 
-    const addToken = () => {return}
+    const addToken = (e) => {
+        let tileObject = e.target
+        let tileNumber = tileObject.getAttribute('data-index')
+        gameBoard.selectTile(tileNumber)
+        tileObject.textContent = gameBoard.board[tileNumber - 1]
+    }
 
-    // tiles.forEach(addEventListener('click', addToken))
+    tiles.forEach(tile => tile.addEventListener('click', addToken))
 
 
 })()
