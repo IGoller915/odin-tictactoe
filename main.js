@@ -26,9 +26,28 @@ const gameBoard = (() => {
     }
 
     const displayBoard = () => console.log(board)
+
+    const winConditions = [  [0, 1, 2], // top row
+        [3, 4, 5], // middle row
+        [6, 7, 8], // bottom row
+        [0, 3, 6], // left column
+        [1, 4, 7], // middle column
+        [2, 5, 8], // right column
+        [0, 4, 8], // diagonal top-left to bottom-right
+        [2, 4, 6], // diagonal top-right to bottom-left
+    ];
+
+    const winCheck = () => {
+        for (let i = 0; i < winConditions.length; i++) {
+            const [a, b, c] = winConditions[i]
+            if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+                console.log(`${board[a]} wins`)
+            }
+        }
+    }
     
 
-    return {selectTile, displayBoard, currentPlayer, changePlayer, board}
+    return {selectTile, displayBoard, currentPlayer, changePlayer, board, winCheck}
 })()
 
 
@@ -45,6 +64,7 @@ const displayController = (() => {
         let tileNumber = tileObject.getAttribute('data-index')
         gameBoard.selectTile(tileNumber)
         tileObject.textContent = gameBoard.board[tileNumber - 1]
+        gameBoard.winCheck()
     }
 
     tiles.forEach(tile => tile.addEventListener('click', addToken))
