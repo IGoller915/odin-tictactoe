@@ -25,8 +25,6 @@ const gameBoard = (() => {
         }
     }
 
-    const displayBoard = () => console.log(board)
-
     const winConditions = [  [0, 1, 2], // top row
         [3, 4, 5], // middle row
         [6, 7, 8], // bottom row
@@ -57,9 +55,22 @@ const gameBoard = (() => {
         displayController.stopTokenAdd(displayController.tiles)
 
     }
+
+    const resetBoard = () => {
+        gameBoard.board = Array(9)
+        const tiles = document.querySelectorAll('.board-tile')
+        tiles.forEach(tile => tile.textContent = '')
+        tiles.forEach(tile => tile.addEventListener('click', displayController.addToken))
+        document.querySelector('.win-message').style.visibility='hidden'
+        gameBoard.currentPlayer = player1
+    }
+
+    const displayBoard = () => {
+        console.log(board)
+    }
     
 
-    return {selectTile, displayBoard, currentPlayer, changePlayer, board, winCheck}
+    return {selectTile, currentPlayer, changePlayer, board, winCheck, resetBoard, displayBoard}
 })()
 
 
@@ -68,7 +79,7 @@ const gameBoard = (() => {
 const displayController = (() => {
     
 
-    let tiles = document.querySelectorAll(".board-tile")
+    
     
 
     const addToken = (e) => {
@@ -79,13 +90,19 @@ const displayController = (() => {
         gameBoard.winCheck()
     }
 
+    let tiles = document.querySelectorAll(".board-tile")
     tiles.forEach(tile => tile.addEventListener('click', addToken))
 
-    const stopTokenAdd = (list) => {
-        list.forEach(tile => tile.removeEventListener('click', addToken))
+    const stopTokenAdd = (tiles) => {
+        tiles.forEach(tile => tile.removeEventListener('click', addToken))
     }
 
-    return {tiles, stopTokenAdd}
+    
+
+    const newGameButton = document.querySelector('.new-game-button')
+    newGameButton.addEventListener('click', gameBoard.resetBoard)
+
+    return {tiles, addToken, stopTokenAdd}
 })()
 
 

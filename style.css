@@ -28,7 +28,7 @@ body{
     font-size: 50px;
 }
 
-#new-game-button{
+.new-game-button{
     font-size: 30px;
     outline: 1px solid black;
     padding: 10px;
