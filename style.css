@@ -11,7 +11,26 @@ body{
 }
 
 .board-tile{
+    display: flex;
     outline: 1px solid black;
-    background-color: grey
+    background-color: grey;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
 
+.win-message{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    visibility: hidden;
+    font-size: 50px;
+}
+
+#new-game-button{
+    font-size: 30px;
+    outline: 1px solid black;
+    padding: 10px;
+    margin 20px
 }

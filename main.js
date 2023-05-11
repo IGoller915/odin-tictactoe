@@ -41,9 +41,21 @@ const gameBoard = (() => {
         for (let i = 0; i < winConditions.length; i++) {
             const [a, b, c] = winConditions[i]
             if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-                console.log(`${board[a]} wins`)
+                const winner = board[a]
+                endGame(winner)
             }
         }
+    }
+
+    const endGame = (winner) => {
+        //display win message and new game button
+        const winMessage = document.querySelector('.win-message')
+        winMessage.firstChild.data = `${winner.toUpperCase()} Wins!` //.firstChild is the text of the div, .textContent was overwriting the inner div
+        winMessage.style.visibility = 'visible'
+
+        //stop player inputs
+        displayController.stopTokenAdd(displayController.tiles)
+
     }
     
 
@@ -69,7 +81,11 @@ const displayController = (() => {
 
     tiles.forEach(tile => tile.addEventListener('click', addToken))
 
+    const stopTokenAdd = (list) => {
+        list.forEach(tile => tile.removeEventListener('click', addToken))
+    }
 
+    return {tiles, stopTokenAdd}
 })()
 
 
